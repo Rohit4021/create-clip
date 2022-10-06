@@ -10,7 +10,7 @@ const projectUuid = '0a985c8a'
 const clipUuid = '2dbbc60a'
 
 app.get('/', (req, res) => {
-    res.send('<a><h1>Go To Synthesize Text</h1></a>')
+    res.send('<a>Go To Synthesize Text</a>')
 })
 
 app.post('/update', (req, res) => {
