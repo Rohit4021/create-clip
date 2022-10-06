@@ -30,7 +30,7 @@ app.post('/update', (req, res) => {
             voice_uuid: '91d32665',
             body: `${text}`,
             synthesize: true,
-            callback_uri: 'https://create-clip.herokuapp.com/'
+            callback_uri: 'https://create-clip.herokuapp.com/stream'
         })
     }
 
