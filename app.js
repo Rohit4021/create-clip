@@ -62,6 +62,8 @@ app.post('/update', (req, res) => {
     }
 
     update()
+    
+        res.redirect('/stream')
 })
 
 app.post('/stream', (req, res) => {
