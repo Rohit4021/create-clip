@@ -4,24 +4,24 @@ const { Resemble } = require('@resemble/node')
 const path = require("path");
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 1000
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
-mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Connection successful')
-}).catch((err) => {
-    console.error(err)
-})
+// mongoose.connect(process.env.DATABASE, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then(() => {
+//     console.log('Connection successful')
+// }).catch((err) => {
+//     console.error(err)
+// })
 
-const schema = new mongoose.Schema({
-    id: String,
-    project_id: String,
-    url: String,
-})
+// const schema = new mongoose.Schema({
+//     id: String,
+//     project_id: String,
+//     url: String,
+// })
 
-const Updates = new mongoose.model('Updates', schema)
+// const Updates = new mongoose.model('Updates', schema)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -68,22 +68,24 @@ app.post('/update', (req, res) => {
 
 app.post('/stream', (req, res) => {
 
-    const update = () => {
-        try {
-            const updateClip = new Updates({
-                id: req.body.id,
-                project_id: req.body.project_id,
-                url: req.body.url
-            })
+//     const update = () => {
+//         try {
+//             const updateClip = new Updates({
+//                 id: req.body.id,
+//                 project_id: req.body.project_id,
+//                 url: req.body.url
+//             })
 
-            const result = updateClip.save()
-            console.log(result)
-        } catch (e) {
-            console.error(e)
-        }
-    }
+//             const result = updateClip.save()
+//             console.log(result)
+//         } catch (e) {
+//             console.error(e)
+//         }
+//     }
     
-    update()
+//     update()
+    
+    console.log(req.body)
 
 })
 
