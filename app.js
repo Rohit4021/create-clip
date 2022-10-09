@@ -4,7 +4,24 @@ const { Resemble } = require('@resemble/node')
 const path = require("path");
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 1000
-// const mongoose = require('mongoose')
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connection successful')
+}).catch((err) => {
+    console.error(err)
+})
+
+const schema = new mongoose.Schema({
+    id: String,
+    project_id: String,
+    url: String,
+})
+
+const Updates = new mongoose.model('Updates', schema)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -23,7 +40,7 @@ app.get('/stream', (req, res) => {
 
 })
 
-app.post('/stream', (req, res) => {
+app.post('/update', (req, res) => {
     const text = req.body.content
 
     const update = async () => {
@@ -45,10 +62,27 @@ app.post('/stream', (req, res) => {
     }
 
     update()
+})
 
-    const response = req.body
+app.post('/stream', (req, res) => {
 
-    res.send(response)
+    const update = () => {
+        try {
+            const updateClip = new Updates({
+                id: req.body.id,
+                project_id: req.body.project_id,
+                url: req.body.url
+            })
+
+            const result = updateClip.save()
+            console.log(result)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    
+    update()
+
 })
 
 app.listen(port, () => {
