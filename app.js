@@ -2,8 +2,12 @@ const express = require('express')
 const app = express()
 const { Resemble } = require('@resemble/node')
 const path = require("path");
+const bodyParser = require('body-parser')
 const port = process.env.PORT || 1000
 // const mongoose = require('mongoose')
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 Resemble.setApiKey('yGkXJabOADCt6DrIi42YAgtt')
 
