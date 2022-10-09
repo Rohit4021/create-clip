@@ -3,6 +3,7 @@ const app = express()
 const { Resemble } = require('@resemble/node')
 const path = require("path");
 const port = process.env.PORT || 1000
+// const mongoose = require('mongoose')
 
 Resemble.setApiKey('yGkXJabOADCt6DrIi42YAgtt')
 
@@ -10,10 +11,15 @@ const projectUuid = '0a985c8a'
 const clipUuid = '2dbbc60a'
 
 app.get('/', (req, res) => {
-    res.send('<a href="/stream" style="font-size: 25px;">Go To Synthesize Text</a>')
+    res.send('<h1><a>Go To Synthesize Text</a></h1>')
 })
 
-app.post('/update', (req, res) => {
+app.get('/stream', (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/index.html'))
+
+})
+
+app.post('/stream', (req, res) => {
     const text = req.body.content
 
     const update = async () => {
@@ -35,14 +41,7 @@ app.post('/update', (req, res) => {
     }
 
     update()
-})
 
-app.get('/stream', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/index.html'))
-
-})
-
-app.post('/stream', (req, res) => {
     const response = req.body
 
     res.send(response)
